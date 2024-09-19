@@ -1,0 +1,30 @@
+**.DS_Store*
+.terraform
+# Local .terraform directories
+.terraformrc
+**.terraform.lock.hcl*
+terraform.tfstate
+terraform.tfstate.backup
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+
+# Exclude all .tfvars filcleares, which might contain sensitive data, such as
+# password, private keys, and other secrets. Alternatively, you can include
+# specific .tfvars files if they don't contain sensitive information.
+# *.tfvars
+
+# Ignore override files as they are usually used for local development
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+i-key
+private_key.pem

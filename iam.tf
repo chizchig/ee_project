@@ -1,4 +1,4 @@
-resource "aws_iam_role" "jenkins_role" {
+resource "aws_iam_role" "jenkins_rolee" {
   name               = "JenkinsRole"
   assume_role_policy = <<EOF
 {
@@ -47,19 +47,19 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "jenkins_sg_policy_attachment" {
-  role       = aws_iam_role.jenkins_role.name
+  role       = aws_iam_role.jenkins_rolee.name
   policy_arn = aws_iam_policy.jenkins_sg_policy.arn
 }
 
 
 # Attach policies granting permissions to the IAM role
 resource "aws_iam_role_policy_attachment" "jenkins_ec2_policy_attachment" {
-  role       = aws_iam_role.jenkins_role.name
+  role       = aws_iam_role.jenkins_rolee.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess" # Adjust policies as needed
 }
 
 resource "aws_iam_role_policy_attachment" "jenkins_vpc_policy_attachment" {
-  role       = aws_iam_role.jenkins_role.name
+  role       = aws_iam_role.jenkins_rolee.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonVPCFullAccess" # Adjust policies as needed
 }
 

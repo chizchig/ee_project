@@ -34,7 +34,7 @@ jobs:
 
         - name: Create terraform.auto.tfvars
           run: |
-           cat <<E0F > terraform.tfvars
+           cat <<EOF > terraform.tfvars
            region                      = "${{  secrets.TF_VAR_REGION }}"
            internal_subnet_cidr_blocks = ["${{ secrets.TF_VAR_INTERNAL_SUBNET_CIDR_BLOCKS }}"]
            external_subnet_cidr_blocks = ["${{ secrets.TF_VAR_EXTERNAL_SUBNET_CIDR_BLOCKS }}"]
@@ -44,7 +44,7 @@ jobs:
            security_group_name         = "${{  secrets.TF_VAR_SECRET_GROUP_NAME }}"
            ami_id                      = "${{  secrets.TF_VAR_AMI_ID }}"
            instance_type               = "${{  secrets.TF_VAR_INSTANCE_TYPE }}"
-           E0F
+           EOF
 
         - name: Terraform Init
           run: terraform init

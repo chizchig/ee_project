@@ -71,6 +71,6 @@ variable "instance_type" {
   type = string
 }
 
-variable "passwd" {
-  type = string
-}
+# variable "passwd" {
+#   type = string
+# }

@@ -76,6 +76,7 @@ done
 if sudo systemctl is-active --quiet jenkins; then
     echo "Jenkins is running. Retrieving initial admin password..."
     sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+    echo "Jenkins installation completed successfully. Access Jenkins at http://$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4):8080"
     echo "Jenkins installation completed successfully."
 else
     echo "Jenkins is not running. Installation failed."

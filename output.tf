@@ -21,3 +21,20 @@ output "internal_route_table_ids" {
 output "aws_security_group_id" {
   value = aws_security_group.aurora_sg
 }
+
+output "ec2_public_ip" {
+  description = "The public IP of the EC2 instance"
+  value       = aws_instance.ec2.public_ip
+}
+
+
+output "jenkins_role_arn" {
+  value = aws_iam_role.jenkins_role.arn
+}
+  
+
+
+  
+
+
+

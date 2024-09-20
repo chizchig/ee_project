@@ -63,10 +63,3 @@ resource "aws_iam_role_policy_attachment" "jenkins_vpc_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonVPCFullAccess" # Adjust policies as needed
 }
 
-
-
-
-
-output "jenkins_role_arn" {
-  value = aws_iam_role.jenkins_role.arn
-}

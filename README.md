@@ -64,6 +64,6 @@ Local Kubernetes cluster setup tool for development and testing.
     • Documentation: Maintain comprehensive documentation for reference and 
         troubleshooting.
 
-    By adhering to these instructions, you can effectively set up a Super Instance with     all essential tools bootstrapped, ready to support your development and deployment 
+    By adhering to these instructions, you can effectively set up a Super Instance with  all essential tools bootstrapped, ready to support your development and deployment 
     endeavors seamlessly
 

@@ -1,0 +1,62 @@
+name: 'Terraform AWS Deployment'
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+
+permissions:
+    id-token: write
+    contents: read
+
+jobs: 
+    terraform:
+        name: 'Terraform'
+        runs-on: ubuntu-latest
+
+        steps: 
+        - name: 'Checkout'
+          uses: actions/checkout@v2
+        
+        - name: Configure AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+            aws-region: us-east-1
+            role-session-name: GitHubActions-${{ github.run_id }}
+            role-duration-seconds: 3600
+            audience: sts.amazonaws.com 
+
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v3
+          with:
+            terraform_wrapper: false
+
+        - name: Create terraform.auto.tfvars
+          run: |
+           cat <<E0F > terraform.tfvars
+           region                      = "${{  secrets.TF_VAR_REGION }}"
+           internal_subnet_cidr_blocks = ["${{ secrets.TF_VAR_INTERNAL_SUBNET_CIDR_BLOCKS }}"]
+           external_subnet_cidr_blocks = ["${{ secrets.TF_VAR_EXTERNAL_SUBNET_CIDR_BLOCKS }}"]
+           vpc_cidr_block              = "${{  secrets.TF_VAR_VPC_CIDR_BLOCK }}"
+           ingress_rules               = [${{  secrets.TF_VAR_INGRESS_RULES  }}]
+           egress_rules                = [${{  secrets.TF_VAR_EGRESS_RULES  }}]
+           security_group_name         = "${{  secrets.TF_VAR_SECRET_GROUP_NAME }}"
+           ami_id                      = "${{  secrets.TF_VAR_AMI_ID }}"
+           instance_type               = "${{  secrets.TF_VAR_INSTANCE_TYPE }}"
+           E0F
+
+        - name: Terraform Init
+          run: terraform init
+
+        - name: Terraform Plan
+          run: terraform plan -no-color
+          continue-on-error: true
+          env:
+            TF_VAR-passwd: ${{ secrets.TF_VAR_PASSWD}}
+
+        - name: Terraform Apply
+          if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+          run: terraform apply -auto-approve
+          env:
+            TF_VAR_passwd: ${{ secrets.TF_VAR_PASSWD}}

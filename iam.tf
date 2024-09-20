@@ -67,6 +67,6 @@ resource "aws_iam_role_policy_attachment" "jenkins_vpc_policy_attachment" {
 
 
 
-output "jenkins_rolee_arn" {
-  value = aws_iam_role.jenkins_role.arn
+output "jenkins_role_arn" {
+  value = aws_iam_role.jenkins_rolee.arn
 }
